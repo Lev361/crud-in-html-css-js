@@ -1,48 +1,65 @@
-function onFormSubmit(){
-	var formData = readFormData();
-	insertNewRecord(formData);
-	resetForm();
+let db = [];
+
+function onFormSubmit() {
+  var formData = readFormData();
+  const newdb = db.filter((data) => data.emCode != formData.emCode);
+  newdb.push(formData);
+  db = newdb;
+  insertNewRecord();
+  resetForm();
 }
 
-function readFormData(){
-	var formData = {}
-	
-	formData["emProduct"] = document.getElementById("emProduct").value;
-	formData["emCode"]		=	document.getElementById("emCode").value = Math.floor(Math.random()* 1000);
-	formData["emEmpresa"] = document.getElementById("emEmpresa").value;
-	formData["emPrice"]    = document.getElementById("emPrice").value;
-	return formData;
+function readFormData() {
+  return {
+    emProduct: document.getElementById("emProduct").value,
+    emCode: document.getElementById("emCode").value
+      ? document.getElementById("emCode").value
+      : Math.floor(Math.random() * 1000),
+    emEmpresa: document.getElementById("emEmpresa").value,
+    emPrice: document.getElementById("emPrice").value,
+  };
 }
 
-function insertNewRecord(data){
-	var table = document.getElementById("employeeList").getElementsByTagName("tbody")[0];
-	var newRow = table.insertRow(table.lenght);
-	
-	cell1 = newRow.insertCell(0);
-	cell1.innerHTML = data.emProduct;
-	
-	cell2 = newRow.insertCell(1);
-	cell2.innerHTML = data.emCode;
-	
-	cell3 = newRow.insertCell(2);
-	cell3.innerHTML = data.emEmpresa;
-	
-	cell4 = newRow.insertCell(3);
-	cell4.innerHTML = data.emPrice;
-	
-	cell4 = newRow.insertCell(4);
-	cell4.innerHTML = `<a onClick="onEdit(this)">Edit</a>
-										 <a>Delete</a>`;
+function insertNewRecord() {
+  var table = document.querySelector("tbody");
+  table.innerHTML = "";
+  db.forEach((data) => {
+    table.innerHTML += `
+		<td>${data.emProduct}</td>
+		<td>${data.emCode}</td>
+		<td>${data.emEmpresa}</td>
+		<td>${data.emPrice}</td>
+		<td><a onClick="onEdit(event)">Edit</a>
+		<a onClick="onDelete(event)">Delete</a></td>
+		
+	`;
+  });
 }
 
-function resetForm(){
-	document.getElementById("emProduct").value = "";
-	document.getElementById("emCode").value    = "";
-  document.getElementById("emEmpresa").value = "";
-  document.getElementById("emPrice").value = "";
+function resetForm(emProduct = "", emEmpresa = "", emPrice = "", emCode = "") {
+  document.getElementById("emProduct").value = emProduct;
+  document.getElementById("emCode").value = emCode;
+  document.getElementById("emEmpresa").value = emEmpresa;
+  document.getElementById("emPrice").value = emPrice;
 }
 
+const onEdit = function (event) {
+  const rowTag = event.target.parentElement.parentElement;
+  const id = rowTag.children[1].innerText;
+  const finded = db.find((data) => data.emCode == id);
+  if (finded) {
+    const { emProduct, emEmpresa, emPrice, emCode } = finded;
+    resetForm(emProduct, emEmpresa, emPrice, emCode);
+    console.log(finded);
+  }
+};
 
-function onEdit(td){
-	//Edit
-}
+const onDelete = function (event) {
+  const rowTag = event.target.parentElement.parentElement;
+  const id = rowTag.children[1].innerText;
+
+  const newDB = db.filter((data) => data.emCode != id);
+
+  db = newDB;
+  insertNewRecord();
+};
