@@ -1,55 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/index.css">
-  <script src="js/index.js"></script>
-  <title>CRUD</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/index.css">
+	<script src="js/index.js"></script>
+	<title>CRUD</title>
 </head>
+
 <body>
-		<tr>
-			<td>
-				<form onsubmit="event.preventDefault(); onFormSubmit();" autocomplete="off">
-					<div>
-						<label for="">Produto:</label>
-						<input type="text" placeholder="Nome do produto" id="emProduct">
-					</div>
-					
-					<div>
-						<!--<label for="">Code:</label>-->
-						<input type="number" placeholder="ID do produto" id="emCode" style="display:none;">
-					</div>
-					<div>
-						<label for="">Marca:</label>
-						<input type="text" placeholder="Marca" id="emEmpresa">
-					</div>
-					<div>
-						<label for="">Preço:</label>
-						<input type="number" placeholder="Preço" id="emPrice">
-					</div>
-					<div class="form-action-button">
-						<input type="submit" value="Adicionar">
-					</div>
-				</form>
-			<td>
-				<table class="list" id="employeeList">
-					<thead>
-						<tr>
-							<th>Produto</th>
-							<th>ID</th>
-							<th>Marca</th>
-							<th>Preço</th>
-							<th></th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						
-					</tbody>
-				</table>
-			</td>
-			</td>
-		</tr>
+	<div class="container">
+		<form onsubmit="event.preventDefault(); onFormSubmit();" autocomplete="off">
+			<div>
+				<label for="">Produto:</label>
+				<input type="text" placeholder="Nome do produto" id="emProduct">
+			</div>
+
+			<div>
+				<!--<label for="">Code:</label>-->
+				<input type="number" placeholder="ID do produto" id="emCode" style="display:none;">
+			</div>
+			<div>
+				<label for="">Marca:</label>
+				<input type="text" placeholder="Marca" id="emEmpresa">
+			</div>
+			<div>
+				<label for="">Preço:</label>
+				<input type="number" placeholder="Preço" id="emPrice">
+			</div>
+			<div class="form-action-button">
+				<input type="submit" value="Adicionar">
+			</div>
+		</form>
+
+
+		<table class="list" id="employeeList">
+			<thead>
+				<tr>
+					<th>Produto</th>
+					<th>ID</th>
+					<th>Marca</th>
+					<th>Preço</th>
+					<th>Ações</th>
+				</tr>
+			</thead>
+			<tbody>
+
+			</tbody>
+		</table>
+	</div>
 </body>
+
 </html>
